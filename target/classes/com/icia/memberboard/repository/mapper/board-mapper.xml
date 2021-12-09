@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Board"> 
+ 
+ 	<insert id="boardsave" parameterType="bdto">
+ 		insert into member_board (b_writer, b_title, b_contents, b_date, b_hits) 
+ 			values(#{b_writer},#{b_title},#{b_contents},now(),0)
+ 	</insert>
+ 	
+ 	<!-- 목록보기 -->
+ 	<select id="findAll" resultType="bdto">
+ 	 	select * from member_board
+ 	</select>
+ 	
+ 	<!-- 상세조회 -->	 
+ 	<select id="findById" parameterType="long" resultType="bdto">
+ 		select * from member_board where b_number=#{b_number}
+ 	</select>
+ 	
+ 	<!-- 조회수 증가 -->
+ 	<update id="hits" parameterType="long">
+ 		update member_board set b_hits=(b_hits+1) where b_number=#{b_number}
+ 	</update>
+ 	
+ 	<!-- 삭제 -->
+ 	<delete id="delete" parameterType="long">
+ 		delete from member_board where b_number=#{b_number}
+ 	</delete>
+ 	
+ 	<!-- 업데이트 -->
+ 	<update id="update" parameterType="bdto">
+ 		update member_board set b_password=#{b_password}, b_title=#{b_title}, b_contents=#{b_contents}, b_date=now(), b_filename=#{b_filename} where b_number=#{b_number}
+ 	</update>
+ 	
+ 	<!-- 페이지리스트 -->
+ 	<select id="pagingList" parameterType="int" resultType="bdto">
+		select * from member_board order by b_number desc limit #{pagingStart}, 3
+	</select>
+	<!-- 페이지리스트1 -->
+	<select id="pagingList1" parameterType="java.util.HashMap" resultType="bdto">
+		select * from member_board order by b_number desc limit #{start}, #{limit}
+	</select>
+	<!-- 페이지카운트 -->
+	<select id="count" resultType="int">
+		select count(b_number) from member_board
+	</select>
+	
+	<!-- search기능 -->
+	<!-- <select id="search" parameterType="java.util.HashMap" resultType="bdto">
+	컬럼이오는 where 다음절에 $type 를 넣음
+ 		select * from board where $type like concat('%',#{word}, '%')
+	</select> -->
+	
+		<select id="search" parameterType="java.util.HashMap" resultType="bdto">
+		select * from member_board
+		 			
+		<include refid="search"></include>
+	</select>
+	
+	<sql id="search">
+		<choose>
+			<when test="type=='b_title'">
+				where b_title like concat('%', #{word}, '%') 
+			</when>
+			<when test="type=='b_writer'">
+				where b_writer like concat('%', #{word}, '%') 
+			</when>
+		</choose>
+	</sql>
+	
+	<insert id="savefile" parameterType="bdto">
+ 		insert into member_board(b_writer, b_title, b_contents, b_date, b_hits, b_filename) 
+ 			values(#{b_writer},#{b_title},#{b_contents},now(),0,#{b_filename})
+ 	</insert>
+</mapper>
