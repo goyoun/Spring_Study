@@ -47,7 +47,7 @@ public class BoardService implements BoardServiceInterface {
 //		List<BoardDTO> pagingList = br.pagingList(pagingStart);
 		List<BoardDTO> pagingList = br.pagingList1(pagingParam);
 		for(BoardDTO b: pagingList) {
-			System.out.println(b.toString());
+//			System.out.println(b.toString());
 		}
 		return pagingList;
 	}
@@ -75,7 +75,7 @@ public class BoardService implements BoardServiceInterface {
 		paging.setEndPage(endPage);
 		paging.setMaxPage(maxPage);
 		
-		System.out.println("paging.toString(): "+ paging.toString());
+//		System.out.println("paging.toString(): "+ paging.toString());
 		
 		return paging;
 	}
@@ -97,7 +97,7 @@ public class BoardService implements BoardServiceInterface {
 		String b_filename = b_file.getOriginalFilename();
 		// 파일명 중복을 피하기 위해 파일이름앞에 현재 시간값을 붙임. 
 		b_filename = System.currentTimeMillis() + "-" + b_filename;
-		System.out.println("b_filename: " + b_filename);
+//		System.out.println("b_filename: " + b_filename);
 		// 파일 저장경로 세팅
 		String savePath = "C:\\Development\\source\\spring_sts\\MemberBoard\\src\\main\\webapp\\resources\\boardupload\\"+b_filename;
 		// bfile이 비어있지 않다면(즉 파일이 있으면) savePath에 저장을 하겠다.
@@ -138,7 +138,7 @@ public class BoardService implements BoardServiceInterface {
 		String b_filename = b_file.getOriginalFilename();
 		// 파일명 중복을 피하기 위해 파일이름앞에 현재 시간값을 붙임. 
 		b_filename = System.currentTimeMillis() + "-" + b_filename;
-		System.out.println("b_filename: " + b_filename);
+//		System.out.println("b_filename: " + b_filename);
 		// 파일 저장경로 세팅
 		String savePath = "C:\\Development\\source\\spring_sts\\MemberBoard\\src\\main\\webapp\\resources\\boardupload\\"+b_filename;
 		// bfile이 비어있지 않다면(즉 파일이 있으면) savePath에 저장을 하겠다.

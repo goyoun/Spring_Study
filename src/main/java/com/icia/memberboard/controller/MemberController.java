@@ -73,6 +73,8 @@ public class MemberController {
 //		System.out.println("받아지냐?");
 //		return "redirect:/member/mypage?m_number=" + member.getM_number();	
 }
+	
+	//회원전체정보 출력
 	@RequestMapping (value="memberAll", method=RequestMethod.GET)
 	public String memberAll(Model model) {
 		List<MemberDTO> mList = ms.memberAll();

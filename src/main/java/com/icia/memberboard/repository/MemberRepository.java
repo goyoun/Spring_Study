@@ -34,7 +34,6 @@ public class MemberRepository {
 	}
 
 	public int update(MemberDTO member) {
-		System.out.println("레파지토리씨빨새끼..ㅠㅠ");
 		return sql.update("Member.update", member);
 	}
 
